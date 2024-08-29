@@ -22,7 +22,7 @@ function Register({ navigation }) {
         try {
             const response = await axios.post(`${API_URL}/auth/register`, registerRequest);
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 setSnackbarMessage('Registration successful!');
                 navigation.navigate('Login'); // Navigate to Login screen after successful registration
             }
