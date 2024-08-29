@@ -22,12 +22,12 @@ function Introduction({ navigation }) {
 
         setLoading(true);
         try {
-            const response = await axios.get(`${API_URL}/get-user/${username}`);
+            const response = await axios.get(`${API_URL}/auth/get-user/${username}`);
             if (response.status === 200) {
                 setUser(response.data); // Assume response.data contains user details
             }
         } catch (error) {
-            console.log(error);
+            console.log(error?.message);
         } finally {
             setLoading(false);
         }

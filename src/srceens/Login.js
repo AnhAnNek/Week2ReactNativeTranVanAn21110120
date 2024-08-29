@@ -26,10 +26,7 @@ function Login({ navigation }) {
 
         try {
             // Make a POST request to the login endpoint
-            const response = await axios.post(`${API_URL}/login`, {
-                username,
-                password,
-            });
+            const response = await axios.post(`${API_URL}/auth/login?username=${username}&password=${password}`);
 
             // Handle successful login
             if (response.status === 200) {
