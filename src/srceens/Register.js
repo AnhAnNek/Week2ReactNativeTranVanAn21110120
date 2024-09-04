@@ -9,6 +9,7 @@ function Register({ navigation }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
     const [snackbarVisible, setSnackbarVisible] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
 
@@ -17,6 +18,7 @@ function Register({ navigation }) {
             username: username,
             password: password,
             fullName: fullName,
+            email: email,
         };
 
         try {
@@ -58,6 +60,13 @@ function Register({ navigation }) {
                     onChangeText={setFullName}
                     style={styles.input}
                     autoCapitalize="none"
+                />
+                <TextInput
+                  label="Email"
+                  value={email}
+                  onChangeText={setEmail}
+                  style={styles.input}
+                  autoCapitalize="none"
                 />
                 <Button mode="contained" onPress={handleRegister} style={styles.button}>
                     Register

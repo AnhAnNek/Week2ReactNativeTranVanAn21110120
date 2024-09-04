@@ -5,8 +5,8 @@ import { Text, Snackbar, Button } from 'react-native-paper';
 import axios from 'axios';
 import { API_URL } from '../utils/constants'; // Ensure this points to your API URL
 
-function Introduction({ navigation }) {
-    const [username, setUsername] = useState('');
+function Introduction({ route, navigation }) {
+    const { username } = route.params;
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [snackbarVisible, setSnackbarVisible] = useState(false);
@@ -20,14 +20,23 @@ function Introduction({ navigation }) {
             return;
         }
 
+        console.log(`Fetching username=${username}`)
+
         setLoading(true);
         try {
             const response = await axios.get(`${API_URL}/auth/get-user/${username}`);
             if (response.status === 200) {
-                setUser(response.data); // Assume response.data contains user details
+                const userData = response.data;
+                setUser(userData); // Assume response.data contains user details
+                console.log(userData);
+            } else {
+                setSnackbarMessage('User not found.');
+                setSnackbarVisible(true);
             }
         } catch (error) {
             console.log(error?.message);
+            setSnackbarMessage('An error occurred while fetching user data.');
+            setSnackbarVisible(true);
         } finally {
             setLoading(false);
         }
@@ -35,7 +44,6 @@ function Introduction({ navigation }) {
 
     useEffect(() => {
         // Example: Set default username to fetch user data when component mounts
-        setUsername('exampleUser'); // Replace with dynamic logic as needed
         fetchUserByUsername();
     }, []);
 
@@ -45,9 +53,9 @@ function Introduction({ navigation }) {
             <View style={styles.inputContainer}>
                 {user ? (
                     <View style={styles.userInfo}>
+                        <Text style={styles.userText}>Full name: {user.fullName}</Text>
                         <Text style={styles.userText}>Username: {user.username}</Text>
                         <Text style={styles.userText}>Email: {user.email}</Text>
-                        <Text style={styles.userText}>Phone: {user.phone}</Text>
                     </View>
                 ) : (
                     <Text style={styles.messageText}>No user found. Please enter a username.</Text>

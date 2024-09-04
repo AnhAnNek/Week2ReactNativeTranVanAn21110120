@@ -35,6 +35,7 @@ function Login({ navigation }) {
             }
         } catch (error) {
             console.log(error);
+            showMessage('Login unsuccessful!', 'error');
         } finally {
             setLoading(false);
         }
@@ -79,6 +80,11 @@ function Login({ navigation }) {
                     Don't have an account? Register here
                 </Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+                <Text style={styles.forgotPasswordText}>
+                    Forgot your password? Reset it here
+                </Text>
+            </TouchableOpacity>
             <Snackbar
                 visible={snackbarVisible}
                 onDismiss={() => setSnackbarVisible(false)}
@@ -113,6 +119,11 @@ const styles = StyleSheet.create({
     },
     registerText: {
         marginTop: 15,
+        textAlign: 'center',
+        color: 'blue',
+    },
+    forgotPasswordText: {
+        marginTop: 10,
         textAlign: 'center',
         color: 'blue',
     },
